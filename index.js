@@ -5,6 +5,8 @@ const {Bot} = require('@wireapp/bot-api');
 const {MemoryEngine} = require('@wireapp/store-engine');
 
 const fs = require('fs');
+const path = require('path');
+
 const DATA = './data';
 
 require('dotenv').config();
@@ -58,6 +60,7 @@ const startBot = async (bot, storeEngine) => {
 
   if (!fs.existsSync(DATA)){
     fs.mkdirSync(DATA);
+    fs.writeFileSync(path.join(DATA, 'hello.txt'), 'Hello, world!')
     console.info('Creating directory', DATA);
   } else {
     console.info('Directory exists', DATA);
