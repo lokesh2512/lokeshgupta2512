@@ -62,7 +62,6 @@ const startBot = async (bot, storeEngine) => {
   } else {
     console.info('Directory exists', DATA);
   }
-
   process.exit(0);
   // try {
   //   await storeEngine.init('wire-github-action-bot');
