@@ -4,6 +4,9 @@ const github = require('@actions/github');
 const {Bot} = require('@wireapp/bot-api');
 const {MemoryEngine} = require('@wireapp/store-engine');
 
+const fs = require('fs');
+const DATA = './data';
+
 require('dotenv').config();
 
 const {WIRE_CONVERSATION, WIRE_EMAIL, WIRE_PASSWORD, WIRE_TEXT} = process.env;
@@ -52,25 +55,34 @@ const startBot = async (bot, storeEngine) => {
   console.info('Creating bot', email, conversation, text);
   const bot = new Bot({email, password}, config);
   const storeEngine = new MemoryEngine();
-  try {
-    await storeEngine.init('wire-github-action-bot');
-  } catch (error) {
-    console.error('init', error);
-    core.setFailed(error);
-  }
-  try {
-    await startBot(bot, storeEngine);
-  } catch (error) {
-    console.error('startBot', error);
-    core.setFailed(error);
+
+  if (!fs.existsSync(DATA)){
+    fs.mkdirSync(DATA);
+    console.info('Creating directory', DATA);
+  } else {
+    console.info('Directory exists', DATA);
   }
 
-  try {
-    await bot.sendText(conversation, text);
-    console.info('Message sent', text);
-    process.exit(0)
-  } catch (error) {
-    console.error('sendText', error);
-    core.setFailed(error);
-  }
+  process.exit(0);
+  // try {
+  //   await storeEngine.init('wire-github-action-bot');
+  // } catch (error) {
+  //   console.error('init', error);
+  //   core.setFailed(error);
+  // }
+  // try {
+  //   await startBot(bot, storeEngine);
+  // } catch (error) {
+  //   console.error('startBot', error);
+  //   core.setFailed(error);
+  // }
+
+  // try {
+  //   await bot.sendText(conversation, text);
+  //   console.info('Message sent', text);
+  //   process.exit(0)
+  // } catch (error) {
+  //   console.error('sendText', error);
+  //   core.setFailed(error);
+  // }
 })().catch(error => core.setFailed(error));
