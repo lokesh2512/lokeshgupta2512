@@ -9,7 +9,7 @@ jobs:
         id: cache-data
         uses: actions/cache@v1
         with:
-          path: data
+          path: ./data
           key: ${{runner.os}}-data
       - uses: actions/checkout@v1
       - name: Post a message
