@@ -61,9 +61,9 @@ const startBot = async (bot, storeEngine) => {
   if (!fs.existsSync(DATA)){
     fs.mkdirSync(DATA);
     fs.writeFileSync(path.join(DATA, 'hello.txt'), 'Hello, world!')
-    console.info('Creating directory', DATA);
+    core.info('Creating directory', DATA);
   } else {
-    console.info('Directory exists', DATA);
+    core.info('Directory exists', DATA);
   }
   process.exit(0);
   // try {
