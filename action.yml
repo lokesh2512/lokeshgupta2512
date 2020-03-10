@@ -20,6 +20,10 @@ inputs:
     description: 'Text you want to post'
     required: true
     default: 'Hello, world!'
+  permanent:
+    description: 'Use File storage instead'
+    required: true
+    default: 'false'
 runs:
   using: 'node12'
   main: 'index.js'

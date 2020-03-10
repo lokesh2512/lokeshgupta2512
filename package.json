@@ -12,7 +12,7 @@
     "@actions/github": "2.1.1",
     "@wireapp/bot-api": "7.4.8",
     "@wireapp/store-engine": "4.3.7",
-    "@wireapp/store-engine-fs": "2.1.10",
+    "@wireapp/store-engine-fs": "^2.1.13",
     "dotenv": "8.2.0"
   }
 }

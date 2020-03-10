@@ -192,6 +192,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/fs-extra@8.1.0":
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/@types/fs-extra/-/fs-extra-8.1.0.tgz#1114834b53c3914806cd03b3304b37b3bd221a4d"
+  integrity sha512-UoOfVEzAUpeSPmjm7h1uk5MH6KZma2z2O7a75onTGjnNvAvMVrPzPL/vBbT65iIGHWj6rokwfmYcmxmlSf2uwg==
+  dependencies:
+    "@types/node" "*"
+
 "@types/long@4.0.1", "@types/long@^4.0.0":
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@types/long/-/long-4.0.1.tgz#459c65fa1867dafe6a8f322c4c51695663cc55e9"
@@ -340,12 +347,12 @@
   dependencies:
     protobufjs "6.8.8"
 
-"@wireapp/store-engine-fs@2.1.10":
-  version "2.1.10"
-  resolved "https://registry.yarnpkg.com/@wireapp/store-engine-fs/-/store-engine-fs-2.1.10.tgz#5e447a0c355887e748336f9fdce71fb9d7c861ff"
-  integrity sha512-anlDi07hxn9ss2itoyMHjjDFueM2EvlVlF3ThtzGmLyrLsYgoF6s9MmYKwSC88oKAolq4fFOtjXISMPuu3K2pQ==
+"@wireapp/store-engine-fs@^2.1.13":
+  version "2.1.13"
+  resolved "https://registry.yarnpkg.com/@wireapp/store-engine-fs/-/store-engine-fs-2.1.13.tgz#31aa24109a26555f6e813a7ed2037352d63a6d5e"
+  integrity sha512-knrptp12NHS7ZKs8zI0qlCjyD2q6FwjDYQfFnIdGtBUW+o+FQCe+tKyGgUwjJcNZ9wXRqVjS0u3LCrAMenYe8Q==
   dependencies:
-    "@types/fs-extra" "8.0.1"
+    "@types/fs-extra" "8.1.0"
     fs-extra "8.1.0"
 
 "@wireapp/store-engine@4.3.7":

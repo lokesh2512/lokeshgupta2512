@@ -19,3 +19,4 @@ jobs:
           password: ${{secrets.WIRE_BOT_PASSWORD}}
           conversation: '6936f0a3-be49-4f81-b4a7-d734661beff2'
           text: 'Hello, World!'
+          permanent: 'true'

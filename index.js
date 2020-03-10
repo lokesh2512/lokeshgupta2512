@@ -3,15 +3,24 @@ const github = require('@actions/github');
 
 const {Bot} = require('@wireapp/bot-api');
 const {MemoryEngine} = require('@wireapp/store-engine');
+const {FileEngine} = require('@wireapp/store-engine-fs');
 
 const fs = require('fs');
 const path = require('path');
 
 const DATA = './data';
 
+console.log(FileEngine);
+
 require('dotenv').config();
 
-const {WIRE_CONVERSATION, WIRE_EMAIL, WIRE_PASSWORD, WIRE_TEXT} = process.env;
+const {
+  WIRE_CONVERSATION,
+  WIRE_EMAIL,
+  WIRE_PASSWORD,
+  WIRE_TEXT,
+  WIRE_PERMANENT,
+} = process.env;
 
 const config = {
   backend: 'production',
@@ -54,37 +63,42 @@ const startBot = async (bot, storeEngine) => {
   const password = core.getInput('password') || WIRE_PASSWORD;
   const conversation = core.getInput('conversation') || WIRE_CONVERSATION;
   const text = core.getInput('text') || WIRE_TEXT;
+  const permanent = (core.getInput('permanent') || WIRE_PERMANENT) === 'true';
   console.info('Creating bot', email, conversation, text);
   const bot = new Bot({email, password}, config);
-  const storeEngine = new MemoryEngine();
 
-  if (!fs.existsSync(DATA)){
-    fs.mkdirSync(DATA);
-    fs.writeFileSync(path.join(DATA, 'hello.txt'), 'Hello, world!')
-    console.info('Creating directory', DATA);
-  } else {
-    console.info('Directory exists', DATA);
+  if (permanent) {
+    if (!fs.existsSync(DATA)) {
+      fs.mkdirSync(DATA);
+      console.info('Creating directory', DATA);
+    } else {
+      console.info('Directory exists', DATA);
+    }
   }
-  process.exit(0);
-  // try {
-  //   await storeEngine.init('wire-github-action-bot');
-  // } catch (error) {
-  //   console.error('init', error);
-  //   core.setFailed(error);
-  // }
-  // try {
-  //   await startBot(bot, storeEngine);
-  // } catch (error) {
-  //   console.error('startBot', error);
-  //   core.setFailed(error);
-  // }
 
-  // try {
-  //   await bot.sendText(conversation, text);
-  //   console.info('Message sent', text);
-  //   process.exit(0)
-  // } catch (error) {
-  //   console.error('sendText', error);
-  //   core.setFailed(error);
-  // }
+  const storeEngine = permanent
+    ? new FileEngine(DATA, {fileExtension: '.json'})
+    : new MemoryEngine();
+
+  try {
+    await storeEngine.init('wire-github-action-bot');
+  } catch (error) {
+    console.error('init', error);
+    core.setFailed(error);
+  }
+  try {
+    await startBot(bot, storeEngine);
+  } catch (error) {
+    console.error('startBot', error);
+    core.setFailed(error);
+  }
+
+  try {
+    await bot.sendText(conversation, text);
+    console.info('Message sent', text);
+    process.exit(0);
+  } catch (error) {
+    console.error('sendText', error);
+    core.setFailed(error);
+  }
 })().catch(error => core.setFailed(error));
