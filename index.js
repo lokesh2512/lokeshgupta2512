@@ -10,8 +10,6 @@ const path = require('path');
 
 const DATA = './data';
 
-console.log(FileEngine);
-
 require('dotenv').config();
 
 const {
@@ -92,7 +90,6 @@ const startBot = async (bot, storeEngine) => {
     console.error('startBot', error);
     core.setFailed(error);
   }
-
   try {
     await bot.sendText(conversation, text);
     console.info('Message sent', text);
