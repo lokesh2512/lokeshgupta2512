@@ -11,7 +11,6 @@ jobs:
         with:
           path: data
           key: ${{runner.os}}-data
-
       - uses: actions/checkout@v1
       - name: Post a message
         uses: ./
